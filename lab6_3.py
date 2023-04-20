@@ -135,6 +135,6 @@ while run:
     screen.blit(text3, (input_box3.x , input_box3.y - 50))
     screen.blit(text4, (btn.x + (btn.w)/6 , btn.y + (btn.h)/8))
     screen.blit(text5, (200, 400))
-    
+    print(55)
     pg.time.delay(1)
     pg.display.update()
