@@ -11,8 +11,8 @@ class InputBox:
 
     def handle_event(self, event):
         
-        if event.type == pg.MOUSEBUTTONDOWN:# ทำการเช็คว่ามีการคลิก Mouse หรือไม่
-            if self.rect.collidepoint(event.pos): #ทำการเช็คว่าตำแหน่งของ Mouse อยู่บน InputBox นี้หรือไม่
+        if event.type == pg.MOUSEBUTTONDOWN:                # ทำการเช็คว่ามีการคลิก Mouse หรือไม่
+            if self.rect.collidepoint(event.pos):           # ทำการเช็คว่าตำแหน่งของ Mouse อยู่บน InputBox นี้หรือไม่
                 # Toggle the active variable.
                 self.active = not self.active
             else:
@@ -31,8 +31,6 @@ class InputBox:
                 # Re-render the text.
                 self.txt_surface = FONT.render(self.text, True, self.color)
             
-        
-
     def update(self):
         # Resize the box if the text is too long.
         width = max(200, self.txt_surface.get_width()+10)
@@ -46,11 +44,12 @@ class InputBox:
 
 class Rectangle:
     def __init__(self,x=0,y=0,w=0,h=0,color=(255,0,0)):
-        self.x = x # Position X
-        self.y = y # Position Y
-        self.w = w # Width
-        self.h = h # Height
-        self.color = color
+        self.x = x          # Position X
+        self.y = y          # Position Y
+        self.w = w          # Width
+        self.h = h          # Height
+        self.color = color  # color
+    
     def draw(self,screen):
         pg.draw.rect(screen,self.color,(self.x,self.y,self.w,self.h))
 
@@ -65,7 +64,6 @@ class Button(Rectangle):
                 self.color = (166,156,173)
                 if pg.mouse.get_pressed() == (1, 0, 0):
                     self.color = (156,146,163)
-                    # print("Something happen")
                     return 1 
             else :
                 self.color = (176,166,183)
@@ -79,17 +77,17 @@ pg.init()
 win_x, win_y = 800, 480
 screen = pg.display.set_mode((win_x, win_y))
 
-COLOR_INACTIVE = pg.Color('lightskyblue3') # ตั้งตัวแปรให้เก็บค่าสี เพื่อนำไปใช้เติมสีให้กับกล่องข้อความตอนที่คลิกที่กล่องนั้นๆอยู่
-COLOR_ACTIVE = pg.Color('dodgerblue2')     # ^^^
+COLOR_INACTIVE = pg.Color('lightskyblue3')              # ตั้งตัวแปรให้เก็บค่าสี เพื่อนำไปใช้เติมสีให้กับกล่องข้อความตอนที่คลิกที่กล่องนั้นๆอยู่
+COLOR_ACTIVE = pg.Color('dodgerblue2')                  # ^^^
 FONT = pg.font.Font(None, 32)
 
-input_box1 = InputBox(100, 75, 140, 32) # สร้าง InputBox1
-input_box2 = InputBox(100, 200, 140, 32) # สร้าง InputBox2
-input_box3 = InputBox(100, 325, 140, 32) # สร้าง InputBox2
-input_boxes = [input_box1, input_box2, input_box3] # เก็บ InputBox ไว้ใน list เพื่อที่จะสามารถนำไปเรียกใช้ได้ง่าย
+input_box1 = InputBox(100, 75, 140, 32)                 # สร้าง InputBox1
+input_box2 = InputBox(100, 200, 140, 32)                # สร้าง InputBox2
+input_box3 = InputBox(100, 325, 140, 32)                # สร้าง InputBox2
+input_boxes = [input_box1, input_box2, input_box3]      # เก็บ InputBox ไว้ใน list เพื่อที่จะสามารถนำไปเรียกใช้ได้ง่าย
 run = True
 
-font = pg.font.Font('freesansbold.ttf', 32) # font and fontsize
+font = pg.font.Font('freesansbold.ttf', 32)             # font and fontsize
 font2 = pg.font.Font('freesansbold.ttf', 16)
 something = ''
 text1 = font.render('First Name', True,(166,100,177), (255,255,255)) # (text,is smooth?,letter color,background color)
@@ -121,7 +119,8 @@ while run:
         if event.type == pg.QUIT:
             pg.quit()
             run = False
-    if btn.isMouseOn() == 1 :
+            
+    if btn.isMouseOn() == 1 :       #Check you click submit button
         if input_box1.text != '' and input_box2.text != '' and input_box3.text != '':
             if input_box3.text.isnumeric() == True :
                 something = "Hello " + input_box1.text + " " + input_box2.text + "! " + "You are " + input_box3.text + " years old."
@@ -129,12 +128,13 @@ while run:
                 something = "Age doesn't contain the string!"
         else :
             something = "You miss something !"
+            
     # print(btn.isMouseOn())
     screen.blit(text1, (input_box1.x , input_box1.y - 50))
     screen.blit(text2, (input_box2.x , input_box2.y - 50))
     screen.blit(text3, (input_box3.x , input_box3.y - 50))
     screen.blit(text4, (btn.x + (btn.w)/6 , btn.y + (btn.h)/8))
     screen.blit(text5, (200, 400))
-    print(55)
+
     pg.time.delay(1)
     pg.display.update()
