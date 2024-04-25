@@ -101,7 +101,6 @@ textRect.center = (win_x // 2, win_y // 2)
 btn = Button(550,300,100,50)    
 btn.color = (176,166,183)
 
-
 while run:
     mouse = pg.mouse.get_pos()
     screen.fill((255, 255, 255))
